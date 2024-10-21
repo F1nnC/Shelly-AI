@@ -1,0 +1,20 @@
+# Data handling
+pandas
+numpy
+
+# Machine learning
+scikit-learn
+
+# NLP (Optional, for natural language understanding)
+spacy
+huggingface-hub  # If you want to integrate with Hugging Face models
+
+# API requests (Optional, to get surf data from external sources)
+requests
+
+# Chatbot interface
+Flask  # For a web-based chatbot, or
+python-telegram-bot  # For a Telegram chatbot
+
+# Model saving/loading
+joblib  # For saving machine learning models
