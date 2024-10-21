@@ -9,5 +9,5 @@
 - Two I wanna flex that I made an AI for job and personal
 - Three eliminate looking at surfline and not knowing what all the numbers mean
 
-# Requirments to make it run
+# How to run it
 `pip install -r requirements.txt`
