@@ -10,6 +10,7 @@
     <table border="1">
         <thead>
             <tr>
+                <th>Spot Name</th>
                 <th>Timestamp</th>
                 <th>Surf Quality</th>
                 <th>Surf Rating</th>
@@ -18,6 +19,7 @@
         <tbody>
             {% for row in data %}
             <tr>
+                <td>{{ row.spot_name }}</td>
                 <td>{{ row.timestamp_dt }}</td>
                 <td>{{ row.surf_quality }}</td>
                 <td>{{ row.surf_rating }}</td>

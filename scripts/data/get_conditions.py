@@ -1,12 +1,7 @@
 import pysurfline
-import pandas as pd
-
 from datetime import datetime, timedelta
 import pandas as pd
-
-
-import pandas as pd
-from datetime import datetime, timedelta
+from scripts.data.data_processing import data_processing
 
 # Load your CSV data into a DataFrame
 def check_last_update():
@@ -29,15 +24,18 @@ def check_last_update():
         # Check if it’s been two days or more
         if time_difference >= timedelta(days=2):
             get_conditions()
+            data_processing()
             print("get_conditions() has been run.")
         else:
             print("It's not been two days yet since the last update.")
     except FileNotFoundError:
         print("CSV file not found. Running get_conditions() to create it.")
         get_conditions()
+        data_processing()
     except pd.errors.EmptyDataError:
         print("CSV file is empty. Running get_conditions() to populate it.")
         get_conditions()
+        data_processing()
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
 
