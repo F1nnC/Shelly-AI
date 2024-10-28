@@ -8,7 +8,7 @@ app = Flask(__name__)
 main()
 
 path = "volumes"
-data = pd.read_csv(f"{path}/san-diego.csv")
+data = pd.read_csv(f"{path}/processed_san_diego_forecast.csv")
 
 @app.route('/')
 def index():
