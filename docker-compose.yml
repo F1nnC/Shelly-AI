@@ -1,0 +1,10 @@
+version: '3'
+services:
+  web:
+    image: surf-flask
+    build: .
+    ports:
+      - "8012:8012"
+    volumes:
+      - ./volumes:/volumes
+    restart: unless-stopped
