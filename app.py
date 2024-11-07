@@ -5,14 +5,14 @@ from scripts.main import main
 app = Flask(__name__)
 
 # Load the CSV data from the data folder
-main()
 
-path = "volumes"
-data = pd.read_csv(f"{path}/processed_san_diego_forecast.csv")
 
 @app.route('/')
 def index():
     # Display initial data or summary
+    main()
+    path = "volumes"
+    data = pd.read_csv(f"{path}/processed_san_diego_forecast.csv")
     return render_template('index.html', data=data.head().to_dict(orient='records'))
 
 if __name__ == '__main__':
