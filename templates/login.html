@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Flask App</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="../static/css/styles.css" rel="stylesheet"> <!-- Link to your custom CSS file -->
+</head>
+<body class="text-gray-300 body-edits">
+
+    <!-- Static Cool Background -->
+    <div class="cool"></div>
+
+    {% include "includes/navbar.html" %}
+
+    <!-- Login Card -->
+    <!-- Login Card -->
+    <div class="w-full max-w-sm mx-auto mt-10 p-8 bg-white bg-opacity-10 border border-white shadow-lg rounded-lg transform -translate-y-8">
+        <h2 class="text-2xl font-bold text-white text-center mb-4">Login</h2>
+        <form>
+            <!-- Email Input -->
+            <div class="mb-4">
+                <label class="block text-white text-sm font-semibold mb-2" for="email">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    class="w-full px-4 py-2 border border-white rounded-lg text-white placeholder-gray-300 bg-transparent focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
+
+            <!-- Password Input -->
+            <div class="mb-6">
+                <label class="block text-white text-sm font-semibold mb-2" for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    class="w-full px-4 py-2 border border-white rounded-lg text-white placeholder-gray-300 bg-transparent focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
+                    placeholder="Enter your password"
+                    required
+                >
+            </div>
+
+            <!-- Submit Button -->
+            <button
+                type="submit"
+                class="w-full bg-white bg-opacity-20 text-white font-semibold py-2 rounded-lg hover:bg-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+            >
+                Sign In
+            </button>
+        </form>
+
+        <!-- Footer Links -->
+        <p class="text-gray-300 text-center mt-4">
+            Don't have an account?
+            <a href="#" class="text-white font-semibold hover:underline">Sign up</a>
+        </p>
+    </div>
+
+
+    
+
+    <!-- Other Sections -->
+    <!-- Rest of your HTML code here... -->
+
+</body>
+</html>

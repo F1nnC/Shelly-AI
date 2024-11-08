@@ -7,29 +7,24 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="../static/css/styles.css" rel="stylesheet"> <!-- Link to your custom CSS file -->
 </head>
-<body class="bg-gray-900 text-gray-300">
+<body class="text-gray-300 body-edits">
 
-    <!-- Navbar -->
-    <nav class="bg-gray-800 shadow-md">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-white">Surf AI</a>
-            <div class="flex space-x-4">
-                <a href="#" class="text-gray-400 hover:text-blue-400">Home</a>
-                <a href="#" class="text-gray-400 hover:text-blue-400">Features</a>
-                <a href="#" class="text-gray-400 hover:text-blue-400">Pricing</a>
-                <a href="#" class="text-gray-400 hover:text-blue-400">Contact</a>
-            </div>
-        </div>
-    </nav>
+    <!-- Static Cool Background -->
+    <div class="cool"></div>
 
-    <!-- Hero Section with Animated Background -->
-    <header class="animated-gradient text-gray-300 py-20">
+    {% include "includes/navbar.html" %}
+
+    <!-- Hero Section -->
+    <header class="text-gray-300 py-20">
         <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl font-bold mb-4">Welcome to My Flask App</h1>
-            <p class="text-lg mb-6">A modern, dark-mode-friendly Flask application layout.</p>
-            <a href="#" class="px-8 py-3 bg-gray-900 text-gray-400 font-semibold rounded-lg shadow-md hover:bg-gray-800">Get Started</a>
+            <h1 class="text-4xl font-bold mb-4">Shelly AI</h1>
+            <p class="text-lg mb-6">Modern way to understand surf spots.</p>
+            <a href="/login" class="px-8 py-3 bg-gray-900 text-gray-400 font-semibold rounded-lg shadow-md hover:bg-gray-600">Get Started</a>
         </div>
     </header>
+
+
+    
 
     <!-- Other Sections -->
     <!-- Rest of your HTML code here... -->

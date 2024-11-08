@@ -10,10 +10,15 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     # Display initial data or summary
-    main()
+    # main()
     path = "volumes"
     data = pd.read_csv(f"{path}/processed_san_diego_forecast.csv")
     return render_template('index.html', data=data.head().to_dict(orient='records'))
+
+@app.route('/login')
+def login():
+
+    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port="8012")

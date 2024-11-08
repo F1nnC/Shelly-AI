@@ -1,17 +1,25 @@
-@keyframes gradient-move {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+.cool {
+    position: absolute;                /* 'absolute' */
+    top: 0;                            /* 'inset-0' sets top, right, bottom, and left to 0 */
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -10;                      /* '-z-10' */
+    height: 100%;                      /* 'h-full' */
+    width: 100%;                       /* 'w-full' */
+    display: flex;                     /* 'items-center' uses 'flex' to vertically center items */
+    align-items: center;
+    padding-left: 1.25rem;             /* 'px-5' is 1.25rem padding left and right */
+    padding-right: 1.25rem;
+    padding-top: 6rem;                 /* 'py-24' is 6rem padding top and bottom */
+    padding-bottom: 6rem;
+    background: radial-gradient(
+        125% 125% at 50% 10%, 
+        #000 40%, 
+        rgb(0, 13, 255) 100%
+    );                                 /* Custom radial gradient from Tailwind's arbitrary values */
 }
 
-.animated-gradient {
-    background: linear-gradient(-45deg, #1e3a8a, #3b82f6, #1e40af, #6366f1);
-    background-size: 400% 400%;
-    animation: gradient-move 8s ease infinite;
+.body-edits {
+    background-color: black;       
 }
