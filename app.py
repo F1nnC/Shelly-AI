@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 import pandas as pd
-from scripts.main import main
+# from scripts.main import main
 
 app = Flask(__name__)
 
