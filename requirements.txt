@@ -4,3 +4,4 @@ pandas
 datetime
 sqlalchemy
 flask_sqlalchemy
+apscheduler

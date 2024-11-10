@@ -1,21 +1,30 @@
 from flask import Flask, render_template
+from apscheduler.schedulers.background import BackgroundScheduler
 from extensions import db  # Import db from extensions
 from controllers import bp as controllers_bp
+from data.spotForecast import fetch_all_spots  # Import the function from spotForecast
 import os
 
+# Initialize Flask app
 app = Flask(
     __name__,
     static_folder=os.path.join(os.path.dirname(__file__), '..', 'static'),
     template_folder=os.path.join(os.path.dirname(__file__), '..', 'templates')
 )
 
+# Configure SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../volumes/surf_data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db.init_app(app)  # Initialize db here
+# Initialize db and register Blueprints
+db.init_app(app)
+app.register_blueprint(controllers_bp)
 
-app.register_blueprint(controllers_bp)  # Register the Blueprint
+fetch_all_spots()
 
+
+
+# Define routes
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -28,5 +37,6 @@ def login():
 def signup():
     return render_template('signup.html')
 
+# Run Flask app
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port="8012")
