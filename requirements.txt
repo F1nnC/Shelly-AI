@@ -2,3 +2,5 @@ flask
 pysurfline
 pandas
 datetime
+sqlalchemy
+flask_sqlalchemy
