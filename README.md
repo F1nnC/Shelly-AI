@@ -12,5 +12,8 @@
 ---
 
 # How to run it locally
-1. `pip install -r requirements.txt`
-2. Run `app.py`
+1. Make sure you have [Ollama](https://ollama.com/) installed
+2. Then pull Llama 3.1 `ollama pull llama3.1`
+3. Create venv `python -m venv venv`
+4. Download requirments `pip install -r requirements.txt`
+5. Run `app.py`

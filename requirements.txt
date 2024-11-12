@@ -7,3 +7,6 @@ flask_sqlalchemy
 apscheduler
 Flask-JWT-Extended
 bcrypt
+langchain
+langchain-ollama
+ollama

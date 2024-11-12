@@ -4,6 +4,7 @@ from flask_jwt_extended import jwt_required, JWTManager
 from flask import redirect, url_for
 from api.auth import auth_bp
 from api.surf import bp as surf_bp
+from api.shelly import shelly_bp
 from extensions import db, jwt
 from data.spotForecast import fetch_all_spots  # Import the function from spotForecast
 import os
@@ -29,6 +30,7 @@ app.config['JWT_COOKIE_CSRF_PROTECT'] = False  # Set to True if you want CSRF pr
 db.init_app(app)
 jwt.init_app(app)
 app.register_blueprint(auth_bp, url_prefix="/auth")
+app.register_blueprint(shelly_bp, url_prefix="/ShellyAI")
 app.register_blueprint(surf_bp)
 
 @app.before_request
@@ -58,6 +60,8 @@ def spots():
 @jwt.unauthorized_loader
 def unauthorized_callback(callback):
     return redirect(url_for('login'))
+
+
 
 # Run Flask app
 if __name__ == '__main__':
