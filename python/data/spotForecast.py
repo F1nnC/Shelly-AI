@@ -1,6 +1,6 @@
 # spotForcast.py
 from data.surf_data_fetcher import fetch_and_store_surf_conditions  # Import the new method
-from model import SpotForecastData
+from models.spot_forecast import SpotForecastData
 
 # List of Southern California spots with their spot IDs
 spot_ids = [

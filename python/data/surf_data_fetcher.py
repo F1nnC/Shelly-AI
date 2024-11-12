@@ -3,7 +3,7 @@ import pysurfline
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime, timedelta
 from sqlalchemy import create_engine
-from model import SpotForecastData
+from models.spot_forecast import SpotForecastData
 
 # Your existing code here
 

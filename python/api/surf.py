@@ -1,10 +1,10 @@
 from flask import Blueprint, jsonify, request
-from model import SpotForecastData
+from models.spot_forecast import SpotForecastData
 from datetime import datetime
 
 
 
-bp = Blueprint("controllers", __name__)
+bp = Blueprint("surf-data", __name__)
 
 @bp.route("/api/recent/spot-data", methods=["GET"])
 def spot_data():

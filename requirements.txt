@@ -5,3 +5,5 @@ datetime
 sqlalchemy
 flask_sqlalchemy
 apscheduler
+Flask-JWT-Extended
+bcrypt

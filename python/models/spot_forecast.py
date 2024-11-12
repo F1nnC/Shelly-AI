@@ -1,5 +1,7 @@
 from extensions import db
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 class SpotForecastData(db.Model):  # Use db.Model to enable Flask-SQLAlchemy features
     __tablename__ = "spot_forecast"
