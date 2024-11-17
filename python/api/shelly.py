@@ -17,6 +17,7 @@ def ask():
     chat_history = data.get('chat_history')
     time_surf = data.get('time_surf')
 
+    print("getting surf conditions")
     surf_data = get_surf_conditions_time(time_surf)
 
 
@@ -29,7 +30,7 @@ def ask():
         
         Please don't make up any information, only answer based on the surf data, this data is only showing the time period of the day where the person wants to go
         
-        Respond with only a sentence or two, don't give a long answer, just saying I recommend blank because of blank
+        Respond with only a sentence or two, don't give a long answer, just saying I recommend blank because of blank make sure to mention some data from the surf data, wave height is important
         
         Here is the surf conditions of the day: {surf_data}
         
@@ -37,10 +38,13 @@ def ask():
         
         Question: {question}
     """
-    model = OllamaLLM(model="llama3.1")
+    
+    print("making template")
+    model = OllamaLLM(model="llama3.2:1b")
     prompt = ChatPromptTemplate.from_template(template)
     chain = prompt | model
     
+    print("making chain invoke starting")
     answer = chain.invoke({"question": question, "history": chat_history, "surf_data": surf_data})
 
     return jsonify({'answer': answer})

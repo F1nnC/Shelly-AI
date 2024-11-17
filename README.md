@@ -13,7 +13,7 @@
 
 # How to run it locally
 1. Make sure you have [Ollama](https://ollama.com/) installed
-2. Then pull Llama 3.1 `ollama pull llama3.1`
+2. Then pull Llama 3.1:1b `ollama pull llama3.2:1b`
 3. Create venv `python -m venv venv`
 4. Download requirments `pip install -r requirements.txt`
 5. Run `app.py`
