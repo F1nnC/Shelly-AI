@@ -33,8 +33,7 @@ app.register_blueprint(auth_bp, url_prefix="/auth")
 app.register_blueprint(shelly_bp, url_prefix="/ShellyAI")
 app.register_blueprint(surf_bp)
 
-@app.before_request
-def initialize_database():
+with app.app_context():
     db.create_all()  # This will create all tables based on model definitions if they don’t exist
     fetch_all_spots()
 
@@ -56,11 +55,9 @@ def signup():
 def spots():
     return render_template('spots.html')
 
-# Custom unauthorized handler
 @jwt.unauthorized_loader
 def unauthorized_callback(callback):
     return redirect(url_for('login'))
-
 
 
 # Run Flask app

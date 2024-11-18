@@ -14,13 +14,14 @@ def register():
         username = data.get('username')
         email = data.get('email')
         password = data.get('password')
+        favorite_spots = data.get('favorite_spots')
 
         # Check if user already exists
         if User.query.filter_by(username=username).first():
             return jsonify({'error': 'Username already exists'}), 400
 
         # Create new user
-        new_user = User(username=username, email=email)
+        new_user = User(username=username, email=email, favorite_spots=favorite_spots)
         new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
