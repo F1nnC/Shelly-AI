@@ -17,7 +17,8 @@ app = Flask(
 )
 
 # Configure SQLAlchemy
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../volumes/surf_data.db'
+db_path = os.path.join(os.path.dirname(__file__), '..', 'volumes', 'surf_data.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'  # Use a strong secret key
 

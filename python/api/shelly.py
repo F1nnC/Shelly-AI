@@ -1,12 +1,9 @@
-# shelly.py
+import logging
 from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
-from flask import Blueprint, request, jsonify, make_response
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
-from sqlalchemy.exc import SQLAlchemyError
-from models.spot_forecast import SpotForecastData
-from datetime import datetime, time
-from data.surf_data_fetcher import spot_data_time  # Import the function
+from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required
+from data.surf_data_fetcher import spot_data_time
 
 shelly_bp = Blueprint('shelly_bp', __name__)
 
@@ -62,11 +59,16 @@ def ask():
     """
     
     print("making template")
-    model = OllamaLLM(model="llama3.2:1b")
+    # Point to the Ollama service running on the Docker container
+    model = OllamaLLM(model="llama3.2:1b", endpoint="http://ollama:11434")
     prompt = ChatPromptTemplate.from_template(template)
     chain = prompt | model
     
     print("making chain invoke starting")
-    answer = chain.invoke({"question": question, "history": chat_history, "surf_data": surf_data})
-
-    return jsonify({'answer': answer})
+    try:
+        answer = chain.invoke({"question": question, "history": chat_history, "surf_data": surf_data})
+        print("Response from Ollama:", answer)  # Debugging line
+        return jsonify({'answer': answer})
+    except Exception as e:
+        logging.error("Error invoking chain: %s", str(e))
+        return jsonify({"msg": "Error communicating with Ollama service", "error": str(e)}), 500
