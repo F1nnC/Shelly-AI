@@ -1,24 +1,10 @@
 version: '3'
 services:
-  web:
+  shelly-ai:
     build: .
     ports:
       - "8012:8012"
+      - "11434:11434"
     volumes:
       - ./volumes:/volumes
-    depends_on:
-      - ollama
     restart: unless-stopped
-    network_mode: "host"  # Added for debugging purposes
-
-  ollama:
-    image: ollama/ollama
-    volumes:
-      - ollama-data:/root/.ollama
-    ports:
-      - "11434:11434"
-    restart: unless-stopped
-    network_mode: "host"  # Added for debugging purposes
-
-volumes:
-  ollama-data:
