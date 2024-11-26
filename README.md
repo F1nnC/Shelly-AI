@@ -12,8 +12,7 @@
 ---
 
 # How to run it locally
-1. Make sure you have [Ollama](https://ollama.com/) installed
-2. Then pull Llama 3.1:1b `ollama pull llama3.2:1b`
-3. Create venv `python -m venv venv`
-4. Download requirments `pip install -r requirements.txt`
-5. Run `app.py`
+1. Download Docker 🐋
+2. Run this in the terminal `docker-compose up --build`
+  - This step may take a while because it has to download the lite version of the AI
+3. Access the website at this link `http://127.0.0.1:8012`
