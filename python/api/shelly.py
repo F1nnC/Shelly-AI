@@ -3,7 +3,7 @@ from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
-from data.surf_data_fetcher import spot_data_time
+from data.surf_data_fetcher import spot_data_shelly
 import time
 import requests
 
@@ -31,7 +31,7 @@ def ask():
     question = data.get('question')
     chat_history = data.get('chat_history', "")
     spots = data.get('spots')
-    time_period = data.get('time_period')
+
 
     # Validate input data
     if not isinstance(question, str):
@@ -40,31 +40,27 @@ def ask():
         return jsonify({"msg": "Chat history must be a string"}), 422
     if not isinstance(spots, list) or not all(isinstance(spot, str) for spot in spots):
         return jsonify({"msg": "Spots must be a list of strings"}), 422
-    if time_period not in ["morning", "noon", "afternoon"]:
-        return jsonify({"msg": "Invalid time period"}), 422
+    
 
     # Fetch surf conditions for the provided spots and time period
     surf_data = []
     for spot_id in spots:
-        spot_data = spot_data_time(spot_id, time_period)
-        surf_data.extend(spot_data)
+        response = spot_data_shelly(spot_id)
+        surf_data.extend(response.get_json())
+
 
     # Define the prompt template for Shelly AI
     template = """
-        Answer the following question with like a surfer accent.
-        
-        General Information to know, you are a surf condition helper AI called ShellyAI.
-        
-        People can give you questions about surf conditions and you can answer them.
-        
-        Please don't make up any information; only answer based on the surf data provided.
-        This data shows the time period of the day where the person wants to go.
-        
-        Respond with only a sentence or two: 
-        - In the first sentence, recommend a spot in a funny surfer language style.
-        - In the second, give the data for why you recommend that spot.
-        
-        Surf conditions of the day: {surf_data}
+        Answer the question below only using the surf data provided.
+        You are a chatbot named Shelly that answers questions about surf conditions.
+        Please use kinda surfer talk in there
+        also keep your response one to two sentences long, and make sure it's relevant to the surf data.
+        also make sure to mention the best time to go, unless the chat history asks about a certain time
+        and past 180 degrees is offshore, 90 degrees is onshore, and 0 degrees is cross-shore.
+        Chat History: 
+        {history}
+        Surf conditions of the day: 
+        {surf_data}
         Question: {question}
     """
 

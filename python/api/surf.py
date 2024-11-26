@@ -20,6 +20,7 @@ def spot_data():
     result = [
         {
             "spot_id": entry.spot_id,
+            "spot_name": entry.spot_name,
             "time": entry.time,
             "surf_min": entry.surf_min,
             "surf_max": entry.surf_max,
@@ -32,12 +33,40 @@ def spot_data():
     ]
     return jsonify(result)
 
+@bp.route("/api/shelly-data", methods=["GET"])
+@jwt_required()
+def spot_data_shelly():
+    data = request.get_json()
+
+    spot_id = data.get("spot_id")
+
+    if not spot_id:
+        return jsonify({"error": "spot_id parameter is required"}), 400
+
+    today = datetime.now().date()
+    data = SpotForecastData.query.filter_by(spot_id=spot_id).filter(SpotForecastData.time >= today).all()
+
+    result = [
+        {
+            "spot_name": entry.spot_name,
+            "time": entry.time,
+            "wave_height": entry.wave_height,
+            "wind_direction": entry.wind_direction,
+            "surf_optimalScore": entry.surf_optimalScore,
+        }
+        for entry in data
+    ]
+    return jsonify(result)
+
+
 
 @bp.route("/api/recent/spot-data-time", methods=["GET"])
 @jwt_required()
 def spot_data_time():
-    spot_id = request.args.get("spot_id")
-    time_period = request.args.get("time_period")
+    data = request.get_json()
+
+    spot_id = data.get("spot_id")
+    time_period = data.get("time_period")
 
     # Validate the input parameters
     if not spot_id:
@@ -45,6 +74,7 @@ def spot_data_time():
 
     if time_period not in ["morning", "noon", "afternoon"]:
         return jsonify({"error": "Invalid time_period. Must be 'morning', 'noon', or 'afternoon'."}), 400
+
 
     # Get today's date
     today = datetime.now().date()

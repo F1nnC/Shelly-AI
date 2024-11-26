@@ -10,6 +10,7 @@ spot_ids = [
     '5842041f4e65fad6a77088cc',  # La Jolla Shores
     '5842041f4e65fad6a770883d',  # Horseshoe
     '5842041f4e65fad6a770883c',  # Windansea
+    '640a3f73b6d7693ba4512a83'  # Solona Beach
 ]
 
 # Tester method
