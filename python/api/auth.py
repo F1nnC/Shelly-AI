@@ -29,7 +29,7 @@ def register():
         return jsonify({'message': 'User registered successfully'}), 201
     except SQLAlchemyError as e:
         db.session.rollback()
-        return jsonify({'error': 'Database error', 'message': str(e)}), 500
+        return jsonify({'error': 'Database error', 'message': str(e)}), 501
     except Exception as e:
         return jsonify({'error': 'An error occurred', 'message': str(e)}), 500
 
@@ -53,7 +53,7 @@ def login():
         set_access_cookies(response, access_token)
         return response, 200
     except SQLAlchemyError as e:
-        return jsonify({'error': 'Database error', 'message': str(e)}), 500
+        return jsonify({'error': 'Database error', 'message': str(e)}), 501
     except Exception as e:
         return jsonify({'error': 'An error occurred', 'message': str(e)}), 500
 

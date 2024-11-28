@@ -6,6 +6,7 @@
     <title>My Flask App</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="../static/css/styles.css" rel="stylesheet"> <!-- Link to your custom CSS file -->
+    <script src="../static/js/login.js"></script>
 </head>
 <body class="text-gray-300 body-edits">
 
@@ -19,14 +20,14 @@
     <div class="w-full max-w-sm mx-auto mt-10 p-8 bg-white bg-opacity-10 border border-white shadow-lg rounded-lg transform -translate-y-8">
         <h2 class="text-2xl font-bold text-white text-center mb-4">Login</h2>
         <form>
-            <!-- Email Input -->
+            <!-- Username Input -->
             <div class="mb-4">
-                <label class="block text-white text-sm font-semibold mb-2" for="email">Email</label>
+                <label class="block text-white text-sm font-semibold mb-2" for="username">Username</label>
                 <input
-                    type="email"
-                    id="email"
+                    type="username"
+                    id="username"
                     class="w-full px-4 py-2 border border-white rounded-lg text-white placeholder-gray-300 bg-transparent focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
-                    placeholder="Enter your email"
+                    placeholder="Enter your username"
                     required
                 >
             </div>
@@ -43,12 +44,18 @@
                 >
             </div>
 
+            <div id="error" style="color:red; display: none; padding-bottom: 5px;">
+                <!-- Error Message -->
+
+            </div>
+        
             <!-- Submit Button -->
             <button
-                type="submit"
+                id="submit"
+                onclick="login()"
                 class="w-full bg-white bg-opacity-20 text-white font-semibold py-2 rounded-lg hover:bg-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
             >
-                Sign In
+                Login
             </button>
         </form>
 

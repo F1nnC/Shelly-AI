@@ -20,13 +20,13 @@ app = Flask(
 db_path = os.path.join(os.path.dirname(__file__), '..', 'volumes', 'surf_data.db')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'  # Use a strong secret key
+app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'  # Use a strong secret key in production
 
 # Configure JWT
 app.config['JWT_TOKEN_LOCATION'] = ['cookies']
-app.config['JWT_COOKIE_SECURE'] = False  # Set to True in production
+app.config['JWT_COOKIE_SECURE'] = True  # Set to True in production
 app.config['JWT_ACCESS_COOKIE_PATH'] = '/'
-app.config['JWT_COOKIE_CSRF_PROTECT'] = False  # Set to True if you want CSRF protection
+app.config['JWT_COOKIE_CSRF_PROTECT'] = True  # Set to True if you want CSRF protection
 
 db.init_app(app)
 jwt.init_app(app)
