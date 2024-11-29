@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 # from apscheduler.schedulers.background import BackgroundScheduler
-from flask_jwt_extended import jwt_required, JWTManager
+from flask_jwt_extended import jwt_required, JWTManager, get_jwt_identity, verify_jwt_in_request
 from flask import redirect, url_for
 from api.auth import auth_bp
 from api.surf import bp as surf_bp
@@ -24,9 +24,9 @@ app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'  # Use a strong secret key 
 
 # Configure JWT
 app.config['JWT_TOKEN_LOCATION'] = ['cookies']
-app.config['JWT_COOKIE_SECURE'] = True  # Set to True in production
+app.config['JWT_COOKIE_SECURE'] = False  # Set to True in production
 app.config['JWT_ACCESS_COOKIE_PATH'] = '/'
-app.config['JWT_COOKIE_CSRF_PROTECT'] = True  # Set to True if you want CSRF protection
+app.config['JWT_COOKIE_CSRF_PROTECT'] = False  # Set to True if you want CSRF protection
 
 db.init_app(app)
 jwt.init_app(app)
@@ -44,7 +44,14 @@ def index():
     return render_template('index.html')
 
 @app.route('/login')
+
 def login():
+    try:
+        verify_jwt_in_request(optional=True)
+        if get_jwt_identity():  # Check if the user is already logged in
+            return redirect(url_for('spots'))
+    except:
+        pass
     return render_template('login.html')
 
 @app.route('/signup')

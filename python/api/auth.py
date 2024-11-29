@@ -14,7 +14,7 @@ def register():
         username = data.get('username')
         email = data.get('email')
         password = data.get('password')
-        favorite_spots = data.get('favorite_spots')
+        favorite_spots = []
 
         # Check if user already exists
         if User.query.filter_by(username=username).first():
