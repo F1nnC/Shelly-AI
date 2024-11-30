@@ -5,7 +5,7 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 from sqlalchemy.exc import SQLAlchemyError
 
 # Assuming you have a Spot model and a User model with a relationship to spots
-from models import Spot, User, db
+
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -90,15 +90,37 @@ def add_spots():
         if not spots_data:
             return jsonify({'error': 'No spots provided'}), 400
 
-        # Add each spot to the user's spots
-        for spot_data in spots_data:
-            spot = Spot(**spot_data)
-            user.spots.append(spot)
+        # Update the user's favorite spots
+        user.favorite_spots = spots_data
         
         # Commit the changes to the database
         db.session.commit()
 
-        return jsonify({'message': 'Spots added successfully'}), 200
+        return jsonify({'message': 'Favorite spots updated successfully'}), 200
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({'error': 'Database error', 'message': str(e)}), 500
+    except Exception as e:
+        return jsonify({'error': 'An error occurred', 'message': str(e)}), 500
+
+@auth_bp.route('/logout', methods=['POST'])
+@jwt_required()
+def logout():
+    response = jsonify({'logout': True})
+    response.set_cookie('access_token_cookie', '', expires=0)
+    return response, 200
+
+@auth_bp.route('/delete_user', methods=['DELETE'])
+@jwt_required()
+def delete_self():
+    try:
+        current_user_id = get_jwt_identity()
+        user = User.query.get(current_user_id)
+        if not user:
+            return jsonify({'error': 'User not found'}), 404
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({'message': 'User deleted successfully'}), 200
     except SQLAlchemyError as e:
         db.session.rollback()
         return jsonify({'error': 'Database error', 'message': str(e)}), 500
