@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Dial Spin</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="../static/css/styles.css" rel="stylesheet"> <!-- Link to your custom CSS file -->
+    <script src="../static/js/background.js"></script>
+    <script src="../static/js/logout.js"></script>
+</head>
+<body>
+
+    {% include "includes/navbar.html" %}
+
+    <!-- Gradient Section -->
+    <div class="gradient-section">
+        <div class="cool"></div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content-section">
+        <h1>Next Section</h1>
+        <!-- Submit Button -->
+        <button
+        id="submit"
+        onclick="logout()"
+        class="px-8 py-3 bg-gray-900 text-gray-400 font-semibold rounded-lg shadow-md hover:bg-gray-600"
+        >
+        logout
+    </button>
+    </div>
+
+</body>
+</html>

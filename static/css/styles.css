@@ -1,25 +1,40 @@
-.cool {
-    position: absolute;                /* 'absolute' */
-    top: 0;                            /* 'inset-0' sets top, right, bottom, and left to 0 */
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -10;                      /* '-z-10' */
-    height: 100%;                      /* 'h-full' */
-    width: 100%;                       /* 'w-full' */
-    display: flex;                     /* 'items-center' uses 'flex' to vertically center items */
-    align-items: center;
-    padding-left: 1.25rem;             /* 'px-5' is 1.25rem padding left and right */
-    padding-right: 1.25rem;
-    padding-top: 6rem;                 /* 'py-24' is 6rem padding top and bottom */
-    padding-bottom: 6rem;
-    background: radial-gradient(
-        125% 125% at 50% 10%, 
-        #000 40%, 
-        rgb(0, 13, 255) 100%
-    );                                 /* Custom radial gradient from Tailwind's arbitrary values */
+/* Custom styles that won't interfere with header or navbar */
+body {
+    margin: 0;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-family: Arial, sans-serif;
 }
 
-.body-edits {
-    background-color: black;       
+header {
+    position: relative; /* Ensure it's not accidentally hidden */
+    z-index: 1; /* Prevent overlap by other elements like .cool */
+}
+
+
+.gradient-section {
+    height: 100vh; /* Full viewport height */
+    position: relative;
+    overflow: hidden;
+}
+
+.content-section {
+    height: 50vh; 
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
+}
+
+
+.cool {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(
+        125% 125% at 50% 10%, /* Centered gradient for consistent appearance */
+        #000 40%, 
+        rgb(0, 13, 255) 100%
+    );
 }

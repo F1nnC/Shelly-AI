@@ -14,18 +14,41 @@
 
     {% include "includes/navbar.html" %}
 
-    <!-- Hero Section -->
-    <header class="text-gray-300 py-20">
+    
+    <header class="text-gray-300 opacity-0 transition-opacity duration-1000" id="header" style="margin-top: 20vh;">
         <div class="container mx-auto px-6 text-center">
             <h1 class="text-4xl font-bold mb-4">Shelly AI</h1>
             <p class="text-lg mb-6">Modern way to understand surf spots.</p>
-            <a href="/login" class="px-8 py-3 bg-gray-900 text-gray-400 font-semibold rounded-lg shadow-md hover:bg-gray-600">Get Started</a>
+            <button
+                id="submit"
+                onclick="nextPage()"
+                class="px-8 py-3 bg-gray-900 text-gray-400 font-semibold rounded-lg shadow-md hover:bg-gray-600"
+            >Get Started
+            </button>
         </div>
     </header>
-
-
     
 
+    
+    <script>
+        window.addEventListener('load', () => {
+        const header = document.getElementById('header');
+
+        // Add the opacity class after a small delay (if desired)
+        setTimeout(() => {
+            header.classList.remove('opacity-0'); // Remove initial opacity-0
+            header.classList.add('opacity-100'); // Add full opacity
+            }, 200); 
+        });
+
+        function nextPage() {
+            header.classList.remove('opacity-100'); 
+            header.classList.add('opacity-0');
+            setTimeout(() => {
+                window.location.href = '/login';
+            }, 400);
+        }
+    </script>
     <!-- Other Sections -->
     <!-- Rest of your HTML code here... -->
 

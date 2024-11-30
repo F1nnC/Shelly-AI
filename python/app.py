@@ -49,7 +49,7 @@ def login():
     try:
         verify_jwt_in_request(optional=True)
         if get_jwt_identity():  # Check if the user is already logged in
-            return redirect(url_for('spots'))
+            return redirect(url_for('account'))
     except:
         pass
     return render_template('login.html')
@@ -62,6 +62,16 @@ def signup():
 @jwt_required()
 def spots():
     return render_template('spots.html')
+
+@app.route('/account')
+@jwt_required()
+def account():
+    return render_template('account.html')
+
+@app.route('/about')
+@jwt_required()
+def about():
+    return render_template('account.html')
 
 @jwt.unauthorized_loader
 def unauthorized_callback(callback):

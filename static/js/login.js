@@ -1,12 +1,6 @@
-// Decet Button Click Event
-document.getElementById("submit").addEventListener("click", login);
-
-// Detect Enter Key Press Event
-document.getElementById("submit").addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-      login();
-    }
-});
+window.onload = function() {
+    fadeIn();  // Call fadeIn when page has fully loaded
+};
 
 async function login() {
     event.preventDefault(); // Prevent form submission
@@ -35,12 +29,15 @@ async function login() {
     fetch(apiUrl, requestOptions)
         .then((response) => {
             if (response.ok) { // If the response status is 200-299
-                window.location.href = `${baseUrl}/spots`; // Redirect to /spots
+                fadeOut();
+                setTimeout(() => {
+                    window.location.href = `${baseUrl}/account`; // Redirect to /account
+                }, 300);
             } else if (response.status === 401) { // If the response status is 401
                 document.getElementById("error").innerText = "Invalid username or password"; // Display error message
                 document.getElementById("error").style.display = "inline-block"; // Display the error message
             } else {
-                document.getElementById("error").innerText = "Sever Error"; // Display error message
+                document.getElementById("error").innerText = "Server Error"; // Display error message
                 document.getElementById("error").style.display = "inline-block"; // Display the error message
             }
         })
@@ -52,4 +49,14 @@ async function login() {
         .catch((error) => console.error(error));
 }
 
+function fadeOut() {
+    const loginCard = document.getElementById('loginCard');
+    loginCard.classList.remove('opacity-100');
+    loginCard.classList.add('opacity-0');
+}
 
+function fadeIn() {
+    const loginCard = document.getElementById('loginCard');
+    loginCard.classList.remove('opacity-0');
+    loginCard.classList.add('opacity-100');
+}
