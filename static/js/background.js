@@ -39,4 +39,13 @@ window.addEventListener('load', () => {
     setTimeout(() => {
         requestAnimationFrame(animateGradient);
     }, 500);
+
+    const p = document.getElementById('p-fade');
+
+        // Add the opacity class after a small delay (if desired)
+    setTimeout(() => {
+        p.classList.remove('opacity-0'); // Remove initial opacity-0
+        p.classList.add('opacity-100'); // Add full opacity
+    }, 900); 
+    
 });

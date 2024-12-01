@@ -27,15 +27,14 @@ header {
 
 .typing {
     display: inline-block;
-    width: 8ch; /* Set the width to match the final width of the text */
-    text-align: center; /* Align text within the reserved space */
+    text-align: center;
     border-right: 2px solid white;
     white-space: nowrap;
     overflow: hidden;
-    margin-bottom: 55vh;
     font-size: 4em;
     animation: typing 0.8s steps(8), blink 0.5s step-end infinite;
 }
+
 
 @keyframes typing {
     from { width: 0; }
@@ -58,6 +57,15 @@ header {
         rgb(0, 13, 255) 100%
     );
     display: flex; /* Centering the child elements */
-    justify-content: center;
-    align-items: center;
+    flex-direction: column; /* Stack child elements vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    text-align: center; /* Ensure text aligns properly in child elements */
+}
+
+.cool p {
+    margin: 0; /* Remove unnecessary margins for precise alignment */
+    font-size: 1.25rem; /* Adjust size for subtitle */
+    color: #d1d5db; /* Tailwind gray-300 for a softer color */
+    margin-top: 1rem; /* Add spacing below the title */
 }
