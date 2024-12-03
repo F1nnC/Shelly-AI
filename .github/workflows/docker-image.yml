@@ -29,8 +29,6 @@ jobs:
         context: .
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/shelly-ai:latest
-        secrets:
-          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
 
     - name: Verify Docker image
       run: docker run --rm ${{ secrets.DOCKER_USERNAME }}/shelly-ai:latest
