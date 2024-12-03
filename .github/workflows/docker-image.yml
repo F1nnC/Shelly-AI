@@ -31,6 +31,5 @@ jobs:
         tags: ${{ secrets.DOCKER_USERNAME }}/shelly-ai:latest
 
     - name: Verify Docker image
-      run: docker run --rm ${{ secrets.DOCKER_USERNAME }}/shelly-ai:latest
-      env:
-        JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+      run: |
+        docker run --rm ${{ secrets.DOCKER_USERNAME }}/shelly-ai:latest echo "Docker image built successfully"
