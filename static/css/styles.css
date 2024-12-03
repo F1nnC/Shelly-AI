@@ -69,3 +69,14 @@ header {
     color: #d1d5db; /* Tailwind gray-300 for a softer color */
     margin-top: 1rem; /* Add spacing below the title */
 }
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+}

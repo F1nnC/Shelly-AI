@@ -6,7 +6,7 @@
     <title>Shelly AI: Account Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="../static/css/styles.css" rel="stylesheet"> <!-- Link to your custom CSS file -->
-    <script src="../static/js/background.js"></script>
+    <script src="../static/js/accountBackground.js"></script>
     <script src="../static/js/logout.js"></script>
 </head>
 <body class="text-center">
@@ -24,18 +24,22 @@
 
     <!-- Content Section -->
     <div class="content-section">
-        <h1 class="text-4xl font-bold mb-4">Manage Account</h1>
-        <!-- Account Information Table -->
+        <div id="content-section-1">
+            <h1 class="text-4xl font-bold mb-4">Manage Account</h1>
         
+            <!-- Account Information Table -->
+            
 
-        <!-- Submit Button -->
-        <button
-        id="submit"
-        onclick="logout()"
-        class="px-8 py-3 bg-gray-900 text-gray-400 font-semibold rounded-lg shadow-md hover:bg-gray-600"
-        >
-        logout
-    </button>
+            <!-- Submit Button -->
+            <button
+            id="submit"
+            onclick="logout()"
+            class="px-8 py-3 bg-gray-900 text-gray-400 font-semibold rounded-lg shadow-md hover:bg-gray-600"
+            >
+            logout
+            
+            </button>
+        </div>
     </div>
 
 </body>

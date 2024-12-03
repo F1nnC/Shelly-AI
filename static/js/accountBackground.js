@@ -8,6 +8,10 @@ window.addEventListener('load', () => {
 
     let frame = 0;
 
+    // Disable scrolling
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
     // Ease-in-out function
     const easeInOut = (t) => {
         return t < 0.5
@@ -32,6 +36,10 @@ window.addEventListener('load', () => {
 
         if (frame < totalFrames) {
             requestAnimationFrame(animateGradient);
+        } else {
+            // Re-enable scrolling after the animation is complete
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
         }
     };
 
@@ -42,10 +50,34 @@ window.addEventListener('load', () => {
 
     const p = document.getElementById('p-fade');
 
-        // Add the opacity class after a small delay (if desired)
+    // Add the opacity class after a small delay (if desired)
     setTimeout(() => {
         p.classList.remove('opacity-0'); // Remove initial opacity-0
         p.classList.add('opacity-100'); // Add full opacity
     }, 900); 
-    
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const section = document.getElementById('content-section-1');
+
+    // Check if the element exists to avoid null errors
+    if (section) {
+        // Add the fade-in class to the section initially
+        section.classList.add('fade-in');
+
+        // Scroll event listener
+        window.addEventListener('scroll', () => {
+            const sectionRect = section.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            const threshold = viewportHeight * 0.05; // 5vh equivalent
+
+            // Check if the section is within the threshold
+            if (sectionRect.top <= viewportHeight - threshold) {
+                section.classList.add('visible'); // Add visible class to trigger fade-in
+            }
+        });
+    } else {
+        console.error("Element with ID 'content-section-1' not found.");
+    }
 });
