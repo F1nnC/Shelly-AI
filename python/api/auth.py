@@ -110,6 +110,20 @@ def logout():
     response.set_cookie('access_token_cookie', '', expires=0)
     return response, 200
 
+@auth_bp.route('/user', methods=['GET'])
+@jwt_required()
+def get_user():
+    try:
+        current_user_id = get_jwt_identity()
+        user = User.query.get(current_user_id)
+        if not user:
+            return jsonify({'error': 'User not found'}), 404
+        return jsonify(user.return_dict()), 200
+    except SQLAlchemyError as e:
+        return jsonify({'error': 'Database error', 'message': str(e)}), 500
+    except Exception as e:
+        return jsonify({'error': 'An error occurred', 'message': str(e)}), 500
+
 @auth_bp.route('/delete_user', methods=['DELETE'])
 @jwt_required()
 def delete_self():
