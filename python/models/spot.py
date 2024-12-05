@@ -12,7 +12,7 @@ class Spot(db.Model):
     spot_id = db.Column(db.String(120), unique=True, nullable=False)
 
     def get_all_spot_names(self):
-        spots_name = [];
+        spots_name = []
         for spot in Spot.query.all():
             print(spot.name)
             spots_name.append(spot.name)
@@ -26,7 +26,12 @@ class Spot(db.Model):
     
     def get_all_spots(self):
         spots = Spot.query.all()
-        return spots
+        
+        ## Return a list of dictionaries
+        # {"name": "spot_name", "spot_id": "spot_id"}
+        spot_list = [{"name": spot.name, "spot_id": spot.spot_id} for spot in spots]
+            
+        return spot_list
     
     def get_all_spot_ids(self):
         return [spot.spot_id for spot in Spot.query.all()]
