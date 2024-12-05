@@ -1,6 +1,7 @@
 from extensions import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from models.spot import Spot
 
 
 class SpotForecastData(db.Model):  # Use db.Model to enable Flask-SQLAlchemy features
@@ -18,14 +19,7 @@ class SpotForecastData(db.Model):  # Use db.Model to enable Flask-SQLAlchemy fea
     surf_optimalScore = db.Column(db.Float, nullable=True)
 
     def spot_name_set(self):
-        spot_data = {
-            "5842041f4e65fad6a77088af": "Del Mar",
-            "5842041f4e65fad6a7708841": "Pacific Beach",
-            "5842041f4e65fad6a77088cc": "La Jolla Shores",  
-            "5842041f4e65fad6a77088c4": "Tourmaline",
-            "5842041f4e65fad6a770883d": "Horseshoe",
-            "5842041f4e65fad6a770883c": "Windansea",
-            "640a3f73b6d7693ba4512a83": "Solona Beach"
-        }
+        spot = Spot()
+        spot_data = spot.get_spot_id_name_dict()
         self.spot_name = spot_data.get(self.spot_id)
         return self.spot_name
