@@ -3,6 +3,7 @@ from extensions import db
 from models.user import User
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
 from sqlalchemy.exc import SQLAlchemyError
+import logging
 
 # Assuming you have a Spot model and a User model with a relationship to spots
 
@@ -73,9 +74,9 @@ def protected():
     except Exception as e:
         return jsonify({'error': 'An error occurred', 'message': str(e)}), 500
 
-@auth_bp.route('/add_spots', methods=['POST'])
+@auth_bp.route('/add_spot', methods=['POST'])
 @jwt_required()
-def add_spots():
+def add_spot():
     try:
         # Get the current user identity from the JWT token
         current_user_id = get_jwt_identity()
@@ -84,18 +85,25 @@ def add_spots():
         if not user:
             return jsonify({'error': 'User not found'}), 404
 
-        # Get the list of spots from the request body
-        spots_data = request.json.get('spots', [])
+        # Get the spot name and spot id from the request and put it in a dictionary
+        data = request.get_json()
+        name = data.get('name')
+        spot_id = data.get('spot_id')
         
-        if not spots_data:
-            return jsonify({'error': 'No spots provided'}), 400
+        if not name or not spot_id:
+            return jsonify({'error': 'Name and spot_id are required'}), 400
 
-        # Update the user's favorite spots
-        user.favorite_spots = spots_data
+        # Append the new spot to the user's favorite spots
+        if user.favorite_spots is None or user.favorite_spots == []:
+            user.favorite_spots = []
         
-        # Commit the changes to the database
+        user.favorite_spots.append({"name": name, "spot_id": spot_id})
+        
         db.session.commit()
 
+        logging.info(f"Updated favorite_spots: {user.favorite_spots}")
+
+        
         return jsonify({'message': 'Favorite spots updated successfully'}), 200
     except SQLAlchemyError as e:
         db.session.rollback()
