@@ -4,6 +4,7 @@ from models.user import User
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, set_access_cookies
 from sqlalchemy.exc import SQLAlchemyError
 import logging
+from sqlalchemy.orm.attributes import flag_modified
 
 # Assuming you have a Spot model and a User model with a relationship to spots
 
@@ -78,31 +79,68 @@ def protected():
 @jwt_required()
 def add_spot():
     try:
-        # Get the current user identity from the JWT token
         current_user_id = get_jwt_identity()
         user = User.query.get(current_user_id)
         
         if not user:
             return jsonify({'error': 'User not found'}), 404
 
-        # Get the spot name and spot id from the request and put it in a dictionary
         data = request.get_json()
         name = data.get('name')
         spot_id = data.get('spot_id')
         
+        print(data)
+        
         if not name or not spot_id:
             return jsonify({'error': 'Name and spot_id are required'}), 400
 
-        # Append the new spot to the user's favorite spots
         if user.favorite_spots is None or user.favorite_spots == []:
             user.favorite_spots = []
-        
-        user.favorite_spots.append({"name": name, "spot_id": spot_id})
-        
+
+        # Add spot and reassign to trigger SQLAlchemy's tracking
+        user.add_spot({"name": name, "spot_id": spot_id})
+        user.favorite_spots = user.favorite_spots  # Reassign explicitly
+
+        print("Before commit:", user.favorite_spots)
+        flag_modified(user, "favorite_spots")
         db.session.commit()
+        print("After commit:", user.favorite_spots)
+        
+        return jsonify({'message': 'Favorite spots updated successfully'}), 200
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        print(f"Database error: {e}")
+        return jsonify({'error': 'Database error', 'message': str(e)}), 500
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return jsonify({'error': 'An error occurred', 'message': str(e)}), 500
 
-        logging.info(f"Updated favorite_spots: {user.favorite_spots}")
+@auth_bp.route('/remove_spot', methods=['DELETE'])
+@jwt_required()
+def remove_spot():
+    try:
+        current_user_id = get_jwt_identity()
+        user = User.query.get(current_user_id)
+        
+        if not user:
+            return jsonify({'error': 'User not found'}), 404
 
+        data = request.get_json()
+        spot_id = data.get('spot_id')
+        
+        if not spot_id:
+            return jsonify({'error': 'Spot ID is required'}), 400
+
+        if user.favorite_spots is None or user.favorite_spots == []:
+            return jsonify({'error': 'No favorite spots to remove'}), 400
+
+        # Remove spot and reassign to trigger SQLAlchemy's tracking
+        if not user.remove_spot(spot_id):
+            return jsonify({'error': 'Spot not found in favorites'}), 400
+
+        user.favorite_spots = user.favorite_spots  # Reassign explicitly
+        flag_modified(user, "favorite_spots")
+        db.session.commit()
         
         return jsonify({'message': 'Favorite spots updated successfully'}), 200
     except SQLAlchemyError as e:
@@ -110,6 +148,7 @@ def add_spot():
         return jsonify({'error': 'Database error', 'message': str(e)}), 500
     except Exception as e:
         return jsonify({'error': 'An error occurred', 'message': str(e)}), 500
+
 
 @auth_bp.route('/logout', methods=['POST'])
 @jwt_required()
@@ -147,4 +186,4 @@ def delete_self():
         db.session.rollback()
         return jsonify({'error': 'Database error', 'message': str(e)}), 500
     except Exception as e:
-        return jsonify({'error': 'An error occurred', 'message': str(e)}), 500
+        return jsonify({'error': 'An error occurred', 'message': str(e)}), 500 

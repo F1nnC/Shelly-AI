@@ -19,6 +19,22 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
     
+    def add_spot(self, spot):
+        if self.favorite_spots is None:
+            self.favorite_spots = []
+        self.favorite_spots.append(spot)
+        # Re-assign the updated list back to the column
+        self.favorite_spots = self.favorite_spots
+
+    
+    def remove_spot(self, spot_id):
+        for spot in self.favorite_spots:
+            if spot['spot_id'] == spot_id:
+                self.favorite_spots.remove(spot)
+                return True
+        return False
+    
+    
     def return_dict(self):
         return {
             'id': self.id,
