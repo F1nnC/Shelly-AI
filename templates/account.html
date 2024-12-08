@@ -31,7 +31,6 @@
                 <h2 class="text-2xl font-semibold mb-4">Account Info</h2>
                 <p id="username"><strong>Username:</strong></p>
                 <p id="email"><strong>Email:</strong> [email]</p>
-                <p id="favorite-spots"><strong>Favorite Spots:</strong> [spots]</p>
             </div>
             <br>
             <!-- Update Spots Section -->
@@ -46,6 +45,7 @@
                 </select>
                 <button
                     class="mt-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-800 transition"
+                    onclick="addSpot()"
                 >
                     Save
                 </button>
@@ -53,6 +53,10 @@
             
             <br>
 
+            <div id="favorite-spots" class="space-y-4">
+            </div>
+
+            <br>
             <!-- Submit Button -->
             <button
             id="submit"
