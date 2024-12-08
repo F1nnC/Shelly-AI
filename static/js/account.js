@@ -72,6 +72,7 @@ function addSpot() {
             addFavoriteSpotToUI(spotName, spotId);
             // Remove the spot from the dropdown
             removeSpotFromDropdown(spotId);
+            // Re-add to the dropdown in case user wants to add it again
         })
         .catch((error) => console.error(error));
 }
@@ -99,7 +100,7 @@ function deleteSpot(spotId) {
             // Remove the spot from the favorite spots list
             document.getElementById(spotId).remove();
             // Update the dropdown by removing the deleted spot's option
-            removeSpotFromDropdown(spotId);
+            addDropdown(result.name, spotId);
         })
         .catch((error) => console.error(error));
 }
@@ -135,6 +136,20 @@ function updateSpots(name, spotId, favorite_spots) {
     option.value = spotId;
 
     spotDropdown.add(option);
+}
+
+function addDropdown(name, spotId) {
+    let spotDropdown = document.getElementById("spots");
+
+    // Check if the spot is not already in the dropdown
+    if (![...spotDropdown.options].some(option => option.value === spotId)) {
+        // Append a new option to the dropdown
+        let option = document.createElement("option");
+        option.text = name;
+        option.value = spotId;
+
+        spotDropdown.add(option);
+    }
 }
 
 function addFavoriteSpotToUI(name, spotId) {

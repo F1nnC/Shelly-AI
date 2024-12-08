@@ -127,6 +127,7 @@ def remove_spot():
 
         data = request.get_json()
         spot_id = data.get('spot_id')
+        name = user.get_spot_name(spot_id)
         
         if not spot_id:
             return jsonify({'error': 'Spot ID is required'}), 400
@@ -134,6 +135,7 @@ def remove_spot():
         if user.favorite_spots is None or user.favorite_spots == []:
             return jsonify({'error': 'No favorite spots to remove'}), 400
 
+        
         # Remove spot and reassign to trigger SQLAlchemy's tracking
         if not user.remove_spot(spot_id):
             return jsonify({'error': 'Spot not found in favorites'}), 400
@@ -142,7 +144,7 @@ def remove_spot():
         flag_modified(user, "favorite_spots")
         db.session.commit()
         
-        return jsonify({'message': 'Favorite spots updated successfully'}), 200
+        return jsonify({'message': 'Favorite spots updated successfully', 'name': name}), 200
     except SQLAlchemyError as e:
         db.session.rollback()
         return jsonify({'error': 'Database error', 'message': str(e)}), 500

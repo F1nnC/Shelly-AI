@@ -26,6 +26,11 @@ class User(db.Model):
         # Re-assign the updated list back to the column
         self.favorite_spots = self.favorite_spots
 
+    def get_spot_name(self, spot_id):
+        for spot in self.favorite_spots:
+            if spot['spot_id'] == spot_id:
+                return spot['name']
+        return None
     
     def remove_spot(self, spot_id):
         for spot in self.favorite_spots:
