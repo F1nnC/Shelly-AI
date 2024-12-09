@@ -75,6 +75,11 @@ def account():
 def about():
     return render_template('account.html')
 
+@app.route('/chat')
+@jwt_required()
+def chat():
+    return render_template('chat.html')
+
 @jwt.unauthorized_loader
 def unauthorized_callback(callback):
     return redirect(url_for('login'))
