@@ -78,6 +78,7 @@ button {
     justify-content: center; /* Center vertically */
     align-items: center; /* Center horizontally */
     text-align: center; /* Ensure text aligns properly in child elements */
+    z-index: -1;
 }
 
 .cool p {

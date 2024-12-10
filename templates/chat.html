@@ -3,23 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shelly AI: About Page</title>
+    <title>Shelly AI: Chat</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="../static/css/styles.css" rel="stylesheet"> <!-- Link to your custom CSS file -->
+    <link href="../static/css/styles.css" rel="stylesheet"> <!-- Custom CSS -->
 </head>
-<body class="text-gray-300 body-edits">
-
-    <!-- Static Cool Background -->
-    <div class="cool"></div>
-
+<body class="bg-gray-900 text-gray-300 flex flex-col h-screen">
+    <!-- Navbar -->
     {% include "includes/navbar.html" %}
 
-    <p>TODO: make chat</p>
+    <!-- Chat Section -->
+    <div class="cool"></div>
 
-    
+    <div class="flex-1 flex flex-col items-center justify-center">
+        <div class="w-full max-w-3xl bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="p-4 space-y-4 h-96 overflow-y-auto bg-gray-900">
+                <!-- Example Messages -->
+                <div class="flex">
+                    <div class="bg-blue-600 text-white px-4 py-2 rounded-lg max-w-xs">
+                        Hello! How can I help you today?
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <div class="bg-gray-700 text-white px-4 py-2 rounded-lg max-w-xs">
+                        Can you show me today's surf conditions?
+                    </div>
+                </div>
+            </div>
 
-    <!-- Other Sections -->
-    <!-- Rest of your HTML code here... -->
-
+            <!-- Chat Input -->
+            <div class="p-4 bg-gray-700 flex items-center">
+                <input
+                    type="text"
+                    id="chat-input"
+                    placeholder="Type your message..."
+                    class="flex-1 px-4 py-2 text-gray-300 bg-gray-800 rounded-lg focus:outline-none focus:ring focus:ring-blue-400"
+                >
+                <button
+                    id="send-btn"
+                    class="ml-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-800 transition"
+                >
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
