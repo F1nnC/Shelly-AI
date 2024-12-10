@@ -38,3 +38,9 @@ class Spot(db.Model):
     
     def get_spot_id_name_dict(self):
         return {spot.spot_id: spot.name for spot in Spot.query.all()}
+    
+    def delete_spot(self, spot_id):
+        spot = Spot.query.filter_by(spot_id=spot_id).first()
+        db.session.delete(spot)
+        db.session.commit()
+        return spot

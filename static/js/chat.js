@@ -1,37 +1,38 @@
-document.getElementById("send-btn").addEventListener("click", () => {
+document.addEventListener("DOMContentLoaded", () => {
+    const chatMessages = document.getElementById("chat-messages");
     const chatInput = document.getElementById("chat-input");
-    const messageText = chatInput.value.trim();
+    const sendButton = document.getElementById("send-btn");
 
-    if (messageText) {
-        const chatMessages = document.getElementById("chat-messages");
+    sendButton.addEventListener("click", () => {
+        const messageText = chatInput.value.trim();
 
-        // Create a new message bubble for user input
-        const userMessage = document.createElement("div");
-        userMessage.className = "flex justify-end";
-        userMessage.innerHTML = `
-            <div class="bg-gray-700 text-white px-4 py-2 rounded-lg max-w-xs">
-                ${messageText}
-            </div>
-        `;
-        chatMessages.appendChild(userMessage);
+        if (messageText !== "") {
+            // Create a new message div
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("flex", "justify-end", "my-2");
 
-        // Clear input
-        chatInput.value = "";
+            const messageContent = document.createElement("div");
+            messageContent.classList.add("btn-cool", "text-white", "px-4", "py-2", "rounded-lg", "max-w-xs", "bg-blue-600");
+            messageContent.textContent = messageText;
 
-        // Scroll to the bottom
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+            // Append the message content to the message div
+            messageDiv.appendChild(messageContent);
 
-        // Simulate bot response (replace with your backend logic)
-        setTimeout(() => {
-            const botMessage = document.createElement("div");
-            botMessage.className = "flex";
-            botMessage.innerHTML = `
-                <div class="bg-blue-600 text-white px-4 py-2 rounded-lg max-w-xs">
-                    This is a placeholder response from Shelly AI.
-                </div>
-            `;
-            chatMessages.appendChild(botMessage);
+            // Append the new message div to the chat messages container
+            chatMessages.appendChild(messageDiv);
+
+            // Scroll to the bottom of the chat messages container
             chatMessages.scrollTop = chatMessages.scrollHeight;
-        }, 1000);
-    }
+
+            // Clear the input field
+            chatInput.value = "";
+        }
+    });
+
+    // Allow sending messages with the Enter key
+    chatInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            sendButton.click();
+        }
+    });
 });

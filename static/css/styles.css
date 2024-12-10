@@ -62,6 +62,10 @@ button {
     50% { border-color: transparent; }
 }
 
+.btn-cool {
+    background-color: rgb(0, 13, 255);
+}
+
 .cool {
     position: absolute;
     top: 0;

@@ -6,6 +6,7 @@
     <title>Shelly AI: Chat</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="../static/css/styles.css" rel="stylesheet"> <!-- Custom CSS -->
+    <script src="../static/js/chat.js"></script> <!-- Custom JS -->
 </head>
 <body class="bg-gray-900 text-gray-300 flex flex-col h-screen">
     <!-- Navbar -->
@@ -18,14 +19,8 @@
         <div class="w-full max-w-3xl bg-gray-800 shadow-lg rounded-lg overflow-hidden">
             <!-- Chat Messages -->
             <div id="chat-messages" class="p-4 space-y-4 h-96 overflow-y-auto bg-gray-900">
-                <!-- Example Messages -->
-                <div class="flex">
-                    <div class="bg-blue-600 text-white px-4 py-2 rounded-lg max-w-xs">
-                        Hello! How can I help you today?
-                    </div>
-                </div>
                 <div class="flex justify-end">
-                    <div class="bg-gray-700 text-white px-4 py-2 rounded-lg max-w-xs">
+                    <div class="btn-cool text-white px-4 py-2 rounded-lg max-w-xs">
                         Can you show me today's surf conditions?
                     </div>
                 </div>
@@ -41,7 +36,7 @@
                 >
                 <button
                     id="send-btn"
-                    class="ml-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-800 transition"
+                    class="ml-4 px-6 py-2 btn-cool text-white font-semibold rounded-lg hover:bg-blue-800 transition"
                 >
                     Send
                 </button>

@@ -36,3 +36,17 @@ def get_all_spot_names():
     spots_name = spot.get_all_spot_names()
 
     return jsonify(spots_name), 200
+
+@bp.route("/delete_spot", methods=["DELETE"])
+@jwt_required()
+def delete_spot():
+    data = request.get_json()
+    spot_id = data.get("spot_id")
+
+    if not spot_id:
+        return jsonify({"msg": "spot_id is required"}), 400
+
+    spot = Spot()
+    spot.delete_spot(spot_id)
+
+    return jsonify({"msg": "Spot deleted successfully"}), 200

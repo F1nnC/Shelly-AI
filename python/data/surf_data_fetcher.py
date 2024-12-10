@@ -16,34 +16,41 @@ def fetch_and_store_surf_conditions(spot_id):
     today = datetime.now().date()
     latest_entry = session.query(SpotForecastData).filter_by(spot_id=spot_id).order_by(SpotForecastData.time.desc()).first()
     
-    if latest_entry and latest_entry.time.date() >= today:
-        print(f"Data for {spot_id} is up-to-date.")
+    try: 
+        if latest_entry and latest_entry.time.date() >= today:
+            print(f"Data for {spot_id} is up-to-date.")
+            session.close()
+            return
+
+        spot_forecasts = pysurfline.get_spot_forecasts(
+            spotId=spot_id,
+            days=2,
+            intervalHours=3,
+        )
+
+        for wave, wind in zip(spot_forecasts.waves, spot_forecasts.wind):
+            timestamp = wave.timestamp.dt if isinstance(wave.timestamp, pysurfline.api.models.spots.Time) else wave.timestamp
+            if latest_entry and timestamp <= latest_entry.time:
+                continue
+
+            forecast_entry = SpotForecastData(
+                spot_id=spot_id,
+                time=timestamp,
+                surf_min=wave.surf.min,
+                surf_max=wave.surf.max,
+                wave_height=(wave.surf.max + wave.surf.min) / 2,
+                wind_speed=wind.speed,
+                wind_direction=wind.direction,
+                surf_optimalScore=wave.surf.optimalScore
+            )
+            forecast_entry.spot_name_set()
+            session.add(forecast_entry)
+    except Exception as e:
+        ## Print Error
+        print(e)
+        print(f"Failed to fetch forecast data for spot {spot_id}.")
         session.close()
         return
-
-    spot_forecasts = pysurfline.get_spot_forecasts(
-        spotId=spot_id,
-        days=2,
-        intervalHours=3,
-    )
-
-    for wave, wind in zip(spot_forecasts.waves, spot_forecasts.wind):
-        timestamp = wave.timestamp.dt if isinstance(wave.timestamp, pysurfline.api.models.spots.Time) else wave.timestamp
-        if latest_entry and timestamp <= latest_entry.time:
-            continue
-
-        forecast_entry = SpotForecastData(
-            spot_id=spot_id,
-            time=timestamp,
-            surf_min=wave.surf.min,
-            surf_max=wave.surf.max,
-            wave_height=(wave.surf.max + wave.surf.min) / 2,
-            wind_speed=wind.speed,
-            wind_direction=wind.direction,
-            surf_optimalScore=wave.surf.optimalScore
-        )
-        forecast_entry.spot_name_set()
-        session.add(forecast_entry)
 
     session.commit()
     session.close()
