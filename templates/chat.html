@@ -8,35 +8,59 @@
     <link href="../static/css/styles.css" rel="stylesheet"> <!-- Custom CSS -->
     <script src="../static/js/chat.js"></script> <!-- Custom JS -->
 </head>
-<body class="bg-gray-900 text-gray-300 flex flex-col h-screen">
-    <!-- Navbar -->
+<body class="bg-gray-900 text-gray-300 h-screen flex flex-col">
+    <!-- Gradient Background -->
+    <div class="cool fixed inset-0 -z-10 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500"></div>
+
+    <!-- Top Navbar -->
     {% include "includes/navbar.html" %}
 
-    <!-- Chat Section -->
-    <div class="cool"></div>
+    <!-- Main Layout -->
+    <div class="flex-1 flex relative flex-col">
+        <!-- Floating Sidebar -->
+        <div style="margin-left: 10vw; margin-bottom: 21vh; height: 60vh;" 
+             class="bg-opacity-60 backdrop-blur-md absolute bottom-10 flex flex-col items-center space-y-4 bg-gray-800 bg-opacity-80 backdrop-blur-md rounded-2xl w-40 p-4 shadow-lg">
+            <h1 class="text-4xl font-bold text-center mt-8">Spots</h1>
+            <button class="w-full py-2 text-center bg-gray-700 bg-opacity-80 text-white rounded-lg hover:bg-gray-600">
+                Option 1
+            </button>
+            <button class="w-full py-2 text-center bg-gray-700 bg-opacity-80 text-white rounded-lg hover:bg-gray-600">
+                Option 2
+            </button>
+            <button class="w-full py-2 text-center bg-gray-700 bg-opacity-80 text-white rounded-lg hover:bg-gray-600">
+                Option 3
+            </button>
+            <!-- Add more buttons here -->
+        </div>
 
-    <div class="flex-1 flex flex-col items-center justify-center">
-        <div class="w-full max-w-3xl bg-gray-800 shadow-lg rounded-lg overflow-hidden">
-            <!-- Chat Messages -->
-            <div id="chat-messages" class="p-4 space-y-4 h-96 overflow-y-auto bg-gray-900">
-                <div class="flex justify-end">
-                    <div class="btn-cool text-white px-4 py-2 rounded-lg max-w-xs">
-                        Can you show me today's surf conditions?
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col items-center justify-between p-4">
+            <!-- Chat Messages Container -->
+            <div class="bg-opacity-60 backdrop-blur-md w-full max-w-4xl bg-gray-800 bg-opacity-80 backdrop-blur-lg rounded-lg shadow-lg p-6 space-y-4" style="height: 60vh; position: absolute; top: 15vh;">
+                <!-- Chat Messages -->
+                <div id="chat-messages" class="flex-1 p-4 space-y-4 overflow-y-auto">
+                    <div class="flex justify-end">
+                        <div class="btn-cool text-white px-4 py-2 rounded-lg max-w-xs bg-gray-900 bg-opacity-80 shadow-md">
+                            Can you show me today's surf conditions?
+                        </div>
                     </div>
+                    <!-- Add more messages here -->
                 </div>
             </div>
+        </div>
 
-            <!-- Chat Input -->
-            <div class="p-4 bg-gray-700 flex items-center">
+        <!-- Input Bar -->
+        <div class="absolute bottom-6 w-full flex justify-center">
+            <div class="flex items-center w-full max-w-3xl bg-white/10 rounded-lg backdrop-blur-lg px-4 py-3 shadow-lg border border-gray-400">
                 <input
                     type="text"
                     id="chat-input"
                     placeholder="Type your message..."
-                    class="flex-1 px-4 py-2 text-gray-300 bg-gray-800 rounded-lg focus:outline-none focus:ring focus:ring-blue-400"
+                    class="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-blue-400"
                 >
                 <button
                     id="send-btn"
-                    class="ml-4 px-6 py-2 btn-cool text-white font-semibold rounded-lg hover:bg-blue-800 transition"
+                    class="ml-4 px-6 py-2 btn-cool text-white font-semibold rounded-lg bg-blue-700 hover:bg-blue-800 transition"
                 >
                     Send
                 </button>

@@ -51,7 +51,7 @@ function fetchShellyAI() {
     const raw = JSON.stringify({
         "question": question,
         "chat_history": "ShellyAI: Sup, my name is ShellyAI and I'm here to help you with any surf question you need",
-        "spots": spots
+        "spots": spots  
     });
 
     const requestOptions = {

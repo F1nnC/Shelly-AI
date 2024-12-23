@@ -81,7 +81,7 @@ def chat():
     return render_template('chat.html')
 
 @jwt.unauthorized_loader
-def unauthorized_callback(callback):
+def unauthorized_callback():
     return redirect(url_for('login'))
 
 
