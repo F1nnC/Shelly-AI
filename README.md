@@ -18,6 +18,8 @@
   2. [spot_id](https://github.com/F1nnC/Shelly-AI/blob/main/README.md#spot_id)
   3. [spot_forecast](https://github.com/F1nnC/Shelly-AI/blob/main/README.md#spot_forecast)
 - [ShellyAI](https://github.com/F1nnC/Shelly-AI/blob/main/README.md#Shelly-AI)
+  1. [Ollama](https://github.com/F1nnC/Shelly-AI/blob/main/README.md#Ollama)
+- [General HTML, CSS, JS](https://github.com/F1nnC/Shelly-AI/blob/main/README.md#HTML)
 
 ---
 
@@ -79,11 +81,31 @@
 - I then use the `chain.invoke()` with the variables needed inside that, and return that as a the response
 - There is some weird error checking just because I was having problems earlier, but nothing wrong with having some extra checking
 
+## Ollama
+- The ollama port is 11434
+- This is a different port than the flask app
+- The method used in `langchain_ollama` acesses this port
+- Im a using the *llama3.2:1b* model, smaller size, easier to download, faster, and no harder info for the chatbot to interpret
+- For more information on lanchain_ollama, use this [refrence](https://python.langchain.com/docs/integrations/llms/ollama/)
 
+---
 
+## HTML
+- Found inside the template dirct
+- I use a navbar.html that I include in all the pages
+- For the fading effect It just some CSS tranisitions activated after a timeout
+- Every type of transition can be found in its respective js file
 
+## CSS
+- Used Tailwind for most of the project
+- Check static -> style.css for custom styles
+- Also some just edits in spefic element for the style tag
 
+## JS
+- Most of the JS is for fetching the db and putting info on the page
+- The special tranisiton for the account page is found in accountBackground.js
 
+---
 
 
 
