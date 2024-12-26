@@ -13,10 +13,10 @@
 
 # Documentation
 
-- [DB](https://github.com/F1nnC/Shelly-AI/edit/main/README.md#db)
-  1. [User](https://github.com/F1nnC/Shelly-AI/edit/main/README.md#user)
-  2. [spot_id](https://github.com/F1nnC/Shelly-AI/edit/main/README.md#spot_id)
-  3. [spot_forecast](https://github.com/F1nnC/Shelly-AI/edit/main/README.md#spot-forecast)
+- [DB](https://github.com/F1nnC/Shelly-AI/blob/main/README.md#db)
+  1. [User](https://github.com/F1nnC/Shelly-AI/blob/main/README.md#user)
+  2. [spot_id](https://github.com/F1nnC/Shelly-AI/blob/main/README.md#spot_id)
+  3. [spot_forecast](https://github.com/F1nnC/Shelly-AI/blob/main/README.md#spot_forecast)
 
 ## DB
 > What are the db tables
