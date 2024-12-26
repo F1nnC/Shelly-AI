@@ -17,6 +17,7 @@
   1. [User](https://github.com/F1nnC/Shelly-AI/blob/main/README.md#user)
   2. [spot_id](https://github.com/F1nnC/Shelly-AI/blob/main/README.md#spot_id)
   3. [spot_forecast](https://github.com/F1nnC/Shelly-AI/blob/main/README.md#spot_forecast)
+- [ShellyAI](https://github.com/F1nnC/Shelly-AI/blob/main/README.md#Shelly-AI)
 
 ## DB
 > What are the db tables
@@ -57,6 +58,12 @@
 - Currently the only way to add spots is through postman
 - The reason I have so little amount of spots is because I dont want my computer to take to long
 - + you have to manualy find the spot ids, [refrence](https://giocaizzi.github.io/pysurfline/examples/SpotForecasts.html)
+
+## Shelly AI
+- This is mainly about the `ask()` endpoint inside the `shelly.py` file
+- I am using a template before everytime the AI is prompted, gives context through directions to respond, chat history, question asked, and conditions
+- I then use the `chain.invoke()` with the variables needed inside that, and return that as a the response
+- There is some weird error checking just because I was having problems earlier, but nothing wrong with having some extra checking
 
 ## spot_forecast
 > This one is a bit more complicated than user
