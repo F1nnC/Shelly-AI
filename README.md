@@ -8,20 +8,15 @@
 1. Download Docker 🐋
 2. Run this in the terminal `docker-compose up --build`
     - This step may take a while because it has to download the lite version of the AI
+    - Depends how fast ur wifi is
 3. Access the website at this link `http://127.0.0.1:8012`
 
-# Alternate run locally no Docker
-> Basically what the Dockerfile does, if I miss anything look there for help
-1. Download [Ollama](https://ollama.com/download) for your respective os
-2. Run this command in the terminal after `ollama pull llama3.2:1b`
-3. Change the Directory to the repo `cd Shelly-AI`
-4. Start Virtual ENV `python -m venv venv`
-5. Activate VENV `source venv/bin/activate`
-6. Download the dependencies `pip install -r requirements.txt`
-7. Run app.py `app.py inside the python folder`
-8. Access the website at this link `http://127.0.0.1:8012`
-
 # Documentation
+
+- [DB](https://github.com/F1nnC/Shelly-AI/edit/main/README.md#db)
+  1. [User](https://github.com/F1nnC/Shelly-AI/edit/main/README.md#user)
+  2. [spot_id](https://github.com/F1nnC/Shelly-AI/edit/main/README.md#spot_id)
+  3. [spot_forecast](https://github.com/F1nnC/Shelly-AI/edit/main/README.md#spot-forecast)
 
 ## DB
 > What are the db tables
@@ -47,7 +42,7 @@
    - name (string)
    - spot_id (string)
 
-## User
+## user
 > General Info to know
 - Uses JWT
 - All Api methods are found in `auth.py`
@@ -63,7 +58,7 @@
 - The reason I have so little amount of spots is because I dont want my computer to take to long
 - + you have to manualy find the spot ids, [refrence](https://giocaizzi.github.io/pysurfline/examples/SpotForecasts.html)
 
-## Spot Forecast
+## spot_forecast
 > This one is a bit more complicated than user
 - How does it work?
 1. Every time the server starts it runs a script on all the spots found inside the spot_id table
