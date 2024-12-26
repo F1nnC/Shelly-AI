@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 # from apscheduler.schedulers.background import BackgroundScheduler
 from flask_jwt_extended import jwt_required, JWTManager, get_jwt_identity, verify_jwt_in_request
-from flask import redirect, url_for
+from flask import redirect, url_for, jsonify
 from api.auth import auth_bp
 from api.surf import bp as surf_bp
 from api.shelly import shelly_bp
@@ -46,7 +46,6 @@ def index():
     return render_template('index.html')
 
 @app.route('/login')
-
 def login():
     try:
         verify_jwt_in_request(optional=True)
@@ -71,7 +70,6 @@ def account():
     return render_template('account.html')
 
 @app.route('/about')
-@jwt_required()
 def about():
     return render_template('account.html')
 
@@ -81,9 +79,12 @@ def chat():
     return render_template('chat.html')
 
 @jwt.unauthorized_loader
-def unauthorized_callback():
+def unauthorized_callback(error):
     return redirect(url_for('login'))
 
+@jwt.expired_token_loader
+def expired_token_callback(jwt_header, jwt_payload):
+    return redirect(url_for('login'))
 
 # Run Flask app
 if __name__ == '__main__':

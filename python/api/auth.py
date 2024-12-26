@@ -62,19 +62,6 @@ def login():
     except Exception as e:
         return jsonify({'error': 'An error occurred', 'message': str(e)}), 500
 
-# Protected route
-@auth_bp.route('/protected', methods=['GET'])
-@jwt_required()
-def protected():
-    try:
-        current_user_id = get_jwt_identity()
-        user = User.query.get(current_user_id)
-        return jsonify({'message': f'Hello, {user.username}! This is a protected route.'}), 200
-    except SQLAlchemyError as e:
-        return jsonify({'error': 'Database error', 'message': str(e)}), 500
-    except Exception as e:
-        return jsonify({'error': 'An error occurred', 'message': str(e)}), 500
-
 @auth_bp.route('/add_spot', methods=['POST'])
 @jwt_required()
 def add_spot():
@@ -185,6 +172,26 @@ def get_user_ids():
         for spot in user.favorite_spots:
             print(spot['spot_id'])
             spots.append(spot['spot_id'])
+        
+        if not user:
+            return jsonify({'error': 'User not found'}), 404
+        return jsonify(spots), 200
+    except SQLAlchemyError as e:
+        return jsonify({'error': 'Database error', 'message': str(e)}), 500
+    except Exception as e:
+        return jsonify({'error': 'An error occurred', 'message': str(e)}), 500
+    
+@auth_bp.route('/get_spot_names', methods=['GET'])
+@jwt_required()
+def get_user_names():
+    try:
+        current_user_id = get_jwt_identity()
+        user = User.query.get(current_user_id)
+        
+        spots = []
+        
+        for spot in user.favorite_spots:
+            spots.append(spot['name'])
         
         if not user:
             return jsonify({'error': 'User not found'}), 404
