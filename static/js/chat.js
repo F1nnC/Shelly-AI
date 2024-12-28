@@ -12,7 +12,8 @@ function fadeInElements() {
     });
 }
 
-function fetchShellyAI() {
+
+function fetchShellyAI(Inputquestion) {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -20,12 +21,12 @@ function fetchShellyAI() {
     const apiUrl = `${baseUrl}/ShellyAI/ask`;
 
     const spots = fetchSpotIds();
-
-    const question = document.getElementById("chat-input").value.trim();
+    const question = Inputquestion;
+    const chatHistory = getChatHistory();
 
     const raw = JSON.stringify({
         "question": question,
-        "chat_history": "ShellyAI: Sup, my name is ShellyAI and I'm here to help you with any surf question you need",
+        "chat_history": chatHistory,
         "spots": spots  
     });
 
@@ -44,7 +45,7 @@ function fetchShellyAI() {
 
 function fetchSpotIds() {
     const myHeaders = new Headers();
-    myHeaders.append("Cookie", "access_token_cookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzk4Mjg4MSwianRpIjoiMjRmMTgzMGMtZDNkNS00NDUyLWFkNTctNmE5YzZkMjU3MGI1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzMzOTgyODgxLCJleHAiOjE3MzM5ODM3ODF9.MZ-jhwgEQoNnZD8RLGdqKuQjXj34dE5nCZ2UOl1gMBw");
+    myHeaders.append("Content-Type", "application/json");
 
     const baseUrl = `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}`;
     const apiUrl = `${baseUrl}/auth/get_spot_ids`;
@@ -65,7 +66,7 @@ function fetchSpotIds() {
 
 function fetchSpotNames() {
     const myHeaders = new Headers();
-    myHeaders.append("Cookie", "access_token_cookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzk4Mjg4MSwianRpIjoiMjRmMTgzMGMtZDNkNS00NDUyLWFkNTctNmE5YzZkMjU3MGI1IiwidHlwZSI6ImFjY2VzcyIsInN1YiIsMSwibmJmIjoxNzMzOTgyODgxLCJleHAiOjE3MzM5ODM3ODF9.MZ-jhwgEQoNnZD8RLGdqKuQjXj34dE5nCZ2UOl1gMBw");
+    myHeaders.append("Content-Type", "application/json");
 
     const baseUrl = `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}`;
     const apiUrl = `${baseUrl}/auth/get_spot_names`;
@@ -89,6 +90,22 @@ function fetchSpotNames() {
         }
     })
     .catch((error) => console.error(error));
+}
+
+function getChatHistory() {
+    let chatMessages = document.getElementById("chat-messages");
+    let messages = chatMessages.querySelectorAll("div.flex");
+
+    if (messages.length === 0) {
+        return "No chat history found";
+    } else {
+        let chatHistory = "";
+        messages.forEach(message => {
+            let text = message.querySelector("div").textContent.trim();
+            chatHistory += text + "\n";
+        });
+        return chatHistory.trim();
+    }
 }
 
 function sendMessage() {
@@ -118,9 +135,8 @@ function sendMessage() {
 
     // Fetch the response from the server
     // TODO: Fetch the response from the server
-
+    let response = fetchShellyAI(message);
     // Append the response to the chat window
-    response = "TODO: implement the response"
 
     let shellyMessage = `
         <div class="flex justify-start">
