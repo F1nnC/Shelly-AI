@@ -19,8 +19,8 @@
     <div class="fade-in flex-1 flex relative flex-col">
         <!-- Floating Sidebar -->
         <div id="sidebar"
-             style="margin-left: 10vw; margin-bottom: 21vh; height: 60vh;" 
-             class="bg-opacity-60 backdrop-blur-md absolute bottom-10 flex flex-col items-center space-y-4 bg-gray-800 bg-opacity-80 backdrop-blur-md rounded-2xl w-40 p-4 shadow-lg">
+             style="margin-left: 10vw; margin-bottom: 21vh; height: 60vh; border: 1px solid white;" 
+             class="bg-opacity-60 backdrop-blur-md border-white absolute bottom-10 flex flex-col items-center space-y-4 bg-gray-800 bg-opacity-80 backdrop-blur-md rounded-2xl w-40 p-4 shadow-lg">
             <h1 class="text-4xl font-bold text-center mt-8">Spots</h1>
             
             <!-- Add more buttons here -->
@@ -29,34 +29,41 @@
         <!-- Main Content -->
         <div class="flex-1 flex flex-col items-center justify-between p-4">
             <!-- Chat Messages Container -->
-            <div class="bg-opacity-60 backdrop-blur-md w-full max-w-4xl bg-gray-800 bg-opacity-80 backdrop-blur-lg rounded-lg shadow-lg p-6 space-y-4" style="height: 60vh; position: absolute; top: 15vh;">
-                <!-- Chat Messages -->
-                <div id="chat-messages" class="flex-1 p-4 space-y-4 overflow-y-auto">
-                    <div class="flex justify-end">
-                        <div class="btn-cool text-white px-4 py-2 rounded-lg max-w-xs bg-gray-900 bg-opacity-80 shadow-md">
-                            Can you show me today's surf conditions?
+            <div class="bg-opacity-60 backdrop-blur-md w-full max-w-4xl bg-gray-800 bg-opacity-80 backdrop-blur-lg rounded-lg shadow-lg p-6 space-y-4" style="height: 60vh; position: absolute; top: 15vh; border: 1px solid white;">
+                
+                <div id="chat-messages" class="flex-1 p-4 space-y-4 overflow-y-auto h-full max-h-full">
+                    <!-- Chat Messages -->
+                    <div class="flex justify-start">
+                        <div class="btn-chat text-white px-4 py-2 rounded-lg max-w-xs bg-gray-900 bg-opacity-80 shadow-md">
+                            <p class="text-sm">Hello! How can I help you today?</p>
                         </div>
                     </div>
-                    <!-- Add more messages here -->
+                    <div class="flex justify-end">
+                        <div class="btn-cool text-white px-4 py-2 rounded-lg max-w-xs bg-blue-700 shadow-md">
+                            What are the conditions today?
+                        </div>                    
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Input Bar -->
-        <div class="absolute bottom-6 w-full flex justify-center">
-            <div class="flex items-center w-full max-w-3xl bg-white/10 rounded-lg backdrop-blur-lg px-4 py-3 shadow-lg border border-gray-400">
-                <input
-                    type="text"
-                    id="chat-input"
-                    placeholder="Type your message..."
-                    class="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-blue-400"
-                >
-                <button
-                    id="send-btn"
-                    class="ml-4 px-6 py-2 btn-cool text-white font-semibold rounded-lg bg-blue-700 hover:bg-blue-800 transition"
-                >
-                    Send
-                </button>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="absolute bottom-6 w-full flex justify-center">
+                <div class="flex items-center w-full max-w-3xl bg-white/10 rounded-lg backdrop-blur-lg px-4 py-3 shadow-lg border border-gray-400">
+                    <input
+                        type="text"
+                        id="chat-input"
+                        placeholder="Type your message..."
+                        class="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-blue-400"
+                    >
+                    <button
+                        id="send-btn"
+                        onclick="sendMessage()"
+                        class="ml-4 px-6 py-2 btn-cool text-white font-semibold rounded-lg bg-blue-700 hover:bg-blue-800 transition"
+                    >
+                        Send
+                    </button>
+                </div>
             </div>
         </div>
     </div>

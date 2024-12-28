@@ -90,3 +90,51 @@ function fetchSpotNames() {
     })
     .catch((error) => console.error(error));
 }
+
+function sendMessage() {
+    // THings need to happen
+    let sendBtn = document.getElementById("send-btn");
+    let chatInput = document.getElementById("chat-input");
+
+    // Disable the ability to click send
+    sendBtn.disabled = true;
+    sendBtn.classList.add("cursor-not-allowed");
+
+    // Clear the input field
+    let message = chatInput.value.trim();
+    chatInput.value = "";
+
+    let userMessage = `
+        <div class="flex justify-end">
+            <div class="btn-cool text-white px-4 py-2 rounded-lg max-w-xs bg-gray-900 bg-opacity-80 shadow-md">
+                ${message}
+            </div>
+        </div>
+    `;
+
+    // Append the message to the chat window
+    let chatMessages = document.getElementById("chat-messages");
+    chatMessages.innerHTML += userMessage;
+
+    // Fetch the response from the server
+    // TODO: Fetch the response from the server
+
+    // Append the response to the chat window
+    response = "TODO: implement the response"
+
+    let shellyMessage = `
+        <div class="flex justify-start">
+            <div class="btn-chat text-white px-4 py-2 rounded-lg max-w-xs bg-gray-900 bg-opacity-80 shadow-md">
+                ${response}
+            </div>
+        </div>
+    `;
+
+    chatMessages.innerHTML += shellyMessage;
+    
+
+    // Enable the ability to click send again
+    sendBtn.disabled = false;
+    sendBtn.classList.remove("cursor-not-allowed");
+
+}
